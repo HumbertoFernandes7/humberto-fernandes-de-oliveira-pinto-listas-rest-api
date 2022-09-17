@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lista.rest.api.configs.ControllerConfig;
 
 @RestController
-@RequestMapping(ControllerConfig.URL_API + "lista")
+@RequestMapping(ControllerConfig.URL_API + "/lista")
 @CrossOrigin(origins = "*")
 public class ListaController {
 	
 
-	@PostMapping
-	public void cadastraLista() {
-		
-	}
-	
-	@PutMapping
-	public void alteraLista() {
-		
-	}
-	
+//	@PostMapping
+//	public void cadastraLista() {
+//		
+//	}
+//	
+//	@PutMapping
+//	public void alteraLista() {
+//		
+//	}
+//	
 	@GetMapping
 	public void listaTodasListas() {
-		
+		System.out.println("teste");
 	}
-	
-	@GetMapping
-	public void listaPeloIdDaLista() {
-		
-	}
-	
-	@DeleteMapping
-	public void deletaLista() {
-		
-	}
+//	
+//	@GetMapping
+//	public void listaPeloIdDaLista() {
+//		
+//	}
+//	
+//	@DeleteMapping
+//	public void deletaLista() {
+//		
+//	}
 
 }
