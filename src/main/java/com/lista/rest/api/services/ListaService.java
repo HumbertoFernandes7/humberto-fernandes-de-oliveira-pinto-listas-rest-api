@@ -31,4 +31,8 @@ public class ListaService {
 		listaRepository.delete(listaEncontrada);
 	}
 
+	public ListaEntity alteraLista(ListaEntity lista) {
+		return listaRepository.save(lista);
+	}
+
 }

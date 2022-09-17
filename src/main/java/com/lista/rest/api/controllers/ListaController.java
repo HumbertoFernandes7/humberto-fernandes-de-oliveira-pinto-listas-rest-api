@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -41,12 +42,15 @@ public class ListaController {
 		ListaEntity listaCriada = listaService.cadastra(lista);
 		return listaConvert.entityToOutput(listaCriada);
 	}
-//	
-//	@PutMapping
-//	public void alteraLista() {
-//		
-//	}
-//	
+	
+	@PutMapping("/{id}")
+	public ListaOutput alteraLista(@PathVariable Long id, @RequestBody ListaInput listaInput) {
+		ListaEntity lista = listaConvert.inputToEntity(listaInput);
+		lista.setId(id);
+		ListaEntity listaAlterada = listaService.alteraLista(lista);
+		return listaConvert.entityToOutput(listaAlterada);
+	}
+	
 	//Lista todas as Listas
 	@GetMapping
 	public List<ListaOutput> listaTodasListas() {
@@ -54,12 +58,14 @@ public class ListaController {
 		return listaConvert.entityToOutput(listaTodas);
 	}
 	
+	//Busca lista por Id
 	@GetMapping("/{id}")
 	public ListaOutput listaPeloIdDaLista(@PathVariable Long id) {
 		ListaEntity listaEncontrada = listaService.buscaListaPorId(id);
 		return listaConvert.entityToOutput(listaEncontrada);
 	}
 	
+	//Deleta lista por Id
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public void deletaLista(@PathVariable Long id) {
