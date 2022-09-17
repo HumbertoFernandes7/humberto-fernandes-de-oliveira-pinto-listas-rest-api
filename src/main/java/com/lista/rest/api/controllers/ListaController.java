@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,12 +52,13 @@ public class ListaController {
 		List<ListaEntity> listaTodas = listaService.listaTodas();
 		return listaConvert.entityToOutput(listaTodas);
 	}
-//	
-//	@GetMapping
-//	public void listaPeloIdDaLista() {
-//		
-//	}
-//	
+	
+	@GetMapping("/{id}")
+	public ListaOutput listaPeloIdDaLista(@PathVariable Long id) {
+		ListaEntity listaEncontrada = listaService.buscaListaPorId(id);
+		return listaConvert.entityToOutput(listaEncontrada);
+	}
+	
 //	@DeleteMapping
 //	public void deletaLista() {
 //		

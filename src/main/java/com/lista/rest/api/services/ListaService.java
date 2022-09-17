@@ -22,4 +22,9 @@ public class ListaService {
 		return listaRepository.findAll();
 	}
 
+	public ListaEntity buscaListaPorId(Long id) {
+		return listaRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Não foi possivel encontra o ID" + id));
+	}
+
 }
