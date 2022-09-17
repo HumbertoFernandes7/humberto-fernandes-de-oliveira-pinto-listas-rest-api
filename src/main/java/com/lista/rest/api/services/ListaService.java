@@ -1,5 +1,7 @@
 package com.lista.rest.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,10 @@ public class ListaService {
 
 	public ListaEntity cadastra(ListaEntity lista) {
 		return listaRepository.save(lista);
+	}
+
+	public List<ListaEntity> listaTodas() {
+		return listaRepository.findAll();
 	}
 
 }

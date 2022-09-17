@@ -1,5 +1,7 @@
 package com.lista.rest.api.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,9 +45,11 @@ public class ListaController {
 //		
 //	}
 //	
+	//Lista todas as Listas
 	@GetMapping
-	public void listaTodasListas() {
-		System.out.println("teste");
+	public List<ListaOutput> listaTodasListas() {
+		List<ListaEntity> listaTodas = listaService.listaTodas();
+		return listaConvert.entityToOutput(listaTodas);
 	}
 //	
 //	@GetMapping
