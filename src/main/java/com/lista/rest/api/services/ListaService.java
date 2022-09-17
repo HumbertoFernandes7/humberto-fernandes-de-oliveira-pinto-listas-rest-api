@@ -24,7 +24,11 @@ public class ListaService {
 
 	public ListaEntity buscaListaPorId(Long id) {
 		return listaRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Não foi possivel encontra o ID" + id));
+				.orElseThrow(() -> new RuntimeException("Não foi encontrado o Id " + id));
+	}
+
+	public void deletaLista(ListaEntity listaEncontrada) {
+		listaRepository.delete(listaEncontrada);
 	}
 
 }
