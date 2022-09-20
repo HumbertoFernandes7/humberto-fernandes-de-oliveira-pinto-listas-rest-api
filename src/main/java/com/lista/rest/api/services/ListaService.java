@@ -3,12 +3,12 @@ package com.lista.rest.api.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.lista.rest.api.entities.ListaEntity;
 import com.lista.rest.api.repositories.ListaRepository;
 
-@Component
+@Service
 public class ListaService {
 	
 	@Autowired
