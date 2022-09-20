@@ -30,7 +30,7 @@ public class ItemEntity {
 	private Boolean concluido;
 	
 	@ManyToOne
-	@JoinColumn(name = "listaIds")
-	private ListaEntity lista;
+	@JoinColumn(name = "listaId")
+	private ListaEntity listaId;
 
 }

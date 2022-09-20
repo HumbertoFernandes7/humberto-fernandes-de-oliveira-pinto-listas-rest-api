@@ -27,7 +27,7 @@ public class ListaEntity {
 	@Column(name = "titulo")
 	private String titulo;
 
-	@OneToMany(mappedBy = "lista")
+	@OneToMany(mappedBy = "listaId")
 	private List<ItemEntity> item;
 	
 	//@JoinTable(
