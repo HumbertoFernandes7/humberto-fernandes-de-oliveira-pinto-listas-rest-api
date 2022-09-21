@@ -1,5 +1,6 @@
 package com.lista.rest.api.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,11 +28,7 @@ public class ListaEntity {
 	@Column(name = "titulo")
 	private String titulo;
 
-	@OneToMany(mappedBy = "listaId")
-	private List<ItemEntity> item;
+	@OneToMany(mappedBy = "lista")
+	private List<ItemEntity> itens = new ArrayList<>();
 	
-	//@JoinTable(
-	//name = "tb_lista_itens", joinColumns = @JoinColumn(
-	//name = "item_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(
-	//name = "lista_id", referencedColumnName = "id"))
 }

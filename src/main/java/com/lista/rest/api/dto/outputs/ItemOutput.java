@@ -15,5 +15,5 @@ public class ItemOutput {
 	
 	private Boolean concluido;
 	
-	private ListaEntity lista;
+	//private ListaEntity lista;
 }

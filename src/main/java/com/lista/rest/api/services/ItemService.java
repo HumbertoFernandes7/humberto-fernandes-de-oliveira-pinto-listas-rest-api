@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lista.rest.api.dto.inputs.AlteraItemInput;
 import com.lista.rest.api.entities.ItemEntity;
 import com.lista.rest.api.repositories.ItemRepository;
 
@@ -32,7 +33,11 @@ public class ItemService {
 		itemRepository.delete(itemEncontrada);
 	}
 
-	public ItemEntity alteraItem(ItemEntity item) {
+	public ItemEntity alteraItem(ItemEntity item, AlteraItemInput input) {
+		return itemRepository.save(item);
+	}
+		
+	public ItemEntity alteraItemConcluido(ItemEntity item) {
 		return itemRepository.save(item);
 	}
 }
