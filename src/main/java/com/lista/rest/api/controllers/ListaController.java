@@ -24,56 +24,67 @@ import com.lista.rest.api.dto.outputs.ListaOutput;
 import com.lista.rest.api.entities.ListaEntity;
 import com.lista.rest.api.services.ListaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Lista")
 @RestController
 @RequestMapping(ControllerConfig.URL_API + "/lista")
 @CrossOrigin(origins = "*")
 public class ListaController {
 
-	
 	@Autowired
 	private ListaConvert listaConvert;
-	
+
 	@Autowired
 	private ListaService listaService;
+	
 
-	//Cadastra Lista
+	@Operation(summary = "Cadastra Lista", description = "Cadastra uma Lista no banco de dados")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ListaOutput cadastraLista(@RequestBody @Valid ListaInput listaInput ) {
+	public ListaOutput cadastraLista(
+			@Parameter(description = "Representação da Lista") @RequestBody @Valid ListaInput listaInput) {
 		ListaEntity lista = listaConvert.inputToEntity(listaInput);
 		ListaEntity listaCriada = listaService.cadastra(lista);
 		return listaConvert.entityToOutput(listaCriada);
 	}
 	
-	//Altera Lista
+
+	@Operation(summary = "Altera Lista", description = "Altera uma Lista no banco de dados pelo seu Id")
 	@PutMapping("/{id}")
-	public ListaOutput alteraLista(@PathVariable Long id, @RequestBody @Valid ListaInput listaInput) {
+	public ListaOutput alteraLista(@Parameter(description = "Id da Lista", example = "1") @PathVariable Long id,
+			@Parameter(description = "Representação da Lista") @RequestBody @Valid ListaInput listaInput) {
 		ListaEntity lista = listaConvert.inputToEntity(listaInput);
 		lista.setId(id);
 		ListaEntity listaAlterada = listaService.alteraLista(lista);
 		return listaConvert.entityToOutput(listaAlterada);
 	}
 	
-	//Lista todas as Listas
+
+	@Operation(summary = "Busca todas as Listas", description = "Lista todas as Listas cadastradas no banco de dados ")
 	@GetMapping
 	public List<ListaOutput> listaTodasListas() {
 		List<ListaEntity> listaTodas = listaService.listaTodas();
 		return listaConvert.entityToOutput(listaTodas);
 	}
 	
-	//Busca lista por Id
+
+	@Operation(summary = "Busca Lista", description = "Busca uma Lista no banco de dados pelo seu Id")
 	@GetMapping("/{id}")
-	public ListaOutput listaPeloIdDaLista(@PathVariable Long id) {
+	public ListaOutput listaPeloIdDaLista(
+			@Parameter(description = "Id da Lista", example = "1") @PathVariable Long id) {
 		ListaEntity listaEncontrada = listaService.buscaListaPorId(id);
 		return listaConvert.entityToOutput(listaEncontrada);
 	}
 	
-	//Deleta lista por Id
+
+	@Operation(summary = "Deleta Lista", description = "Deleta uma Lista no banco de dados pelo seu Id")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void deletaLista(@PathVariable Long id) {
+	public void deletaLista(@Parameter(description = "Id da Lista", example = "1") @PathVariable Long id) {
 		ListaEntity listaEncontrada = listaService.buscaListaPorId(id);
 		listaService.deletaLista(listaEncontrada);
 	}
-
 }

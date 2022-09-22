@@ -23,6 +23,11 @@ import com.lista.rest.api.dto.outputs.ItemOutput;
 import com.lista.rest.api.entities.ItemEntity;
 import com.lista.rest.api.services.ItemService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Item")
 @RestController
 @RequestMapping(ControllerConfig.URL_API + "/item")
 @CrossOrigin(origins = "*")
@@ -34,36 +39,49 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	// Cadastra Item
+	// @Autowired
+	// private ListaService listaService;
+
+	
+	@Operation(summary = "Cadastra Item", description = "Cadastra um Item no banco de dados")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ItemOutput cadastraItem(@RequestBody @Valid ItemInput itemInput) {
+	public ItemOutput cadastraItem(
+			@Parameter(description = "Representação do Item") @RequestBody @Valid ItemInput itemInput) {
 		ItemEntity item = itemConvert.inputToNewEntity(itemInput);
 		item.setConcluido(false);
-		ItemEntity itemCriada = itemService.cadastra(item);
-		return itemConvert.entityToOutput(itemCriada);
-	}
 
-	// Altera Item
+		// convertLista(itemInput, item);
+
+		ItemEntity itemCriado = itemService.cadastra(item);
+		return itemConvert.entityToOutput(itemCriado);
+	}
+	
+
+	@Operation(summary = "Altera Item", description = "Altera um Item no banco de dados")
 	@PutMapping("/{id}")
-	public ResponseEntity<?> alteraItem(@PathVariable Long id, @RequestBody @Valid AlteraItemInput itemInput) {
+	public ResponseEntity<?> alteraItem(@Parameter(description = "Id do Item", example = "1") @PathVariable Long id,
+			@Parameter(description = "Representação do Item") @RequestBody @Valid AlteraItemInput itemInput) {
 		ItemEntity itemEncontrado = itemService.buscaItemPorId(id);
 		ItemEntity itemConvertido = itemConvert.inputToEntity(itemEncontrado, itemInput);
 		itemService.alteraItem(itemConvertido, itemInput);
 		return ResponseEntity.ok().build();
 	}
+	
 
-	// Deleta Item por Id
+	@Operation(summary = "Deleta Item", description = "Deleta um Item no banco de dados")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void deletaItem(@PathVariable Long id) {
+	public void deletaItem(@Parameter(description = "Id do Item", example = "1") @PathVariable Long id) {
 		ItemEntity itemEncontrado = itemService.buscaItemPorId(id);
 		itemService.deletaItem(itemEncontrado);
 	}
+	
 
-	// Marca para concluido
+	@Operation(summary = "Marca Item como concluido", description = "Altera um Item para concluido")
 	@PutMapping("/{id}/concluido")
-	public ItemOutput marcaItemParaConcluido(@PathVariable Long id) {
+	public ItemOutput marcaItemParaConcluido(
+			@Parameter(description = "Id do Item", example = "1") @PathVariable Long id) {
 		// ItemEntity item = itemConvert.inputAlteraConcluidoToEntity(input);
 		ItemEntity item = itemService.buscaItemPorId(id);
 		item.setId(id);
@@ -71,10 +89,12 @@ public class ItemController {
 		ItemEntity itemAlterado = itemService.alteraItemConcluido(item);
 		return itemConvert.entityToOutput(itemAlterado);
 	}
+	
 
-	// Marca desmarca concluido
+	@Operation(summary = "Desmarca Item como concluido", description = "Altera um Item para não concluido")
 	@PutMapping("/{id}/nao-concluido")
-	public ItemOutput marcaItemParaNãoConcluido(@PathVariable Long id) {
+	public ItemOutput marcaItemParaNãoConcluido(
+			@Parameter(description = "Id do Item", example = "1") @PathVariable Long id) {
 		ItemEntity item = itemService.buscaItemPorId(id);
 		item.setId(id);
 		item.setConcluido(false);
@@ -82,3 +102,15 @@ public class ItemController {
 		return itemConvert.entityToOutput(itemAlterado);
 	}
 }
+
+
+
+
+//	private void convertLista(ItemInput input, ItemEntity entity) {
+//		List<ListaEntity> lista = new ArrayList<>();
+//	
+//		for(Long listaId : input.getListaId()) {
+//			lista.add(listaService.buscaListaPorId(listaId));
+//		}
+//		entity.setLista(lista);
+//	}

@@ -20,10 +20,6 @@ public class ItemService {
 		return itemRepository.save(item);
 	}
 
-	public List<ItemEntity> itemTodas() {
-		return itemRepository.findAll();
-	}
-
 	public ItemEntity buscaItemPorId(Long id) {
 		return itemRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Não foi encontrado o Id " + id));
@@ -39,5 +35,9 @@ public class ItemService {
 		
 	public ItemEntity alteraItemConcluido(ItemEntity item) {
 		return itemRepository.save(item);
+	}
+	
+	public List<ItemEntity> listaTodosPeloIdLista(Long idLista){
+		return itemRepository.findAllByListaId(idLista);
 	}
 }

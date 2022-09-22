@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,16 +25,21 @@ public class ItemEntity {
 	@Column(name = "id")
 	private Long id;
 
+	@NotBlank(message = "Titulo é obrigatorio")
 	@Column(name = "titulo")
 	private String titulo;
 	
+	@NotNull(message = "Concluido é obrigatorio")
 	@Column(name = "concluido")
 	private Boolean concluido;
 	
+	//@NotBlank
 	@ManyToOne
+	@JoinColumn(name = "id_lista")
 	private ListaEntity lista;
 
-	
+//	@OneToMany(mappedBy = "itens")
+//	private List<ListaEntity> lista;
 	
 		//@JoinTable(
 		//name = "tb_lista_itens", joinColumns = @JoinColumn(
