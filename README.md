@@ -5,7 +5,7 @@ Um projeto gerado e desenvolvido com Java 17, spring boot, hibernate, mysql e Sw
 
 ## Como rodar a aplicação
 
-Apos o download do projeto é necessario importalo em alguma IDE que comporte as tecnologias utilizadas e iniciar a aplicação.
+Apos o download do projeto é necessario importar em alguma IDE que comporte as tecnologias utilizadas e iniciar a aplicação.
 
 
 ## Funcionamento da API
