@@ -32,8 +32,4 @@ public class ListaEntity {
 	@OneToMany(mappedBy = "lista", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ItemEntity> itens;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "id_item")
-//	private ItemEntity itens;
-	
 }

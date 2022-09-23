@@ -33,17 +33,11 @@ public class ItemEntity {
 	@Column(name = "concluido")
 	private Boolean concluido;
 	
-	//@NotBlank
+	@NotBlank(message = "Id da lista é obrigatorio")
 	@ManyToOne
 	@JoinColumn(name = "id_lista")
 	private ListaEntity lista;
-
-//	@OneToMany(mappedBy = "itens")
-//	private List<ListaEntity> lista;
 	
-		//@JoinTable(
-		//name = "tb_lista_itens", joinColumns = @JoinColumn(
-		//name = "item_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(
-		//name = "lista_id", referencedColumnName = "id"))
+	
 
 }

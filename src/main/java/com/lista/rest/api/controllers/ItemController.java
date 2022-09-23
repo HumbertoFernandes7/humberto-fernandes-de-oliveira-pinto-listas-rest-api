@@ -22,6 +22,7 @@ import com.lista.rest.api.dto.inputs.ItemInput;
 import com.lista.rest.api.dto.outputs.ItemOutput;
 import com.lista.rest.api.entities.ItemEntity;
 import com.lista.rest.api.services.ItemService;
+import com.lista.rest.api.services.ListaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -39,8 +40,8 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	// @Autowired
-	// private ListaService listaService;
+	 @Autowired
+	 private ListaService listaService;
 
 	
 	@Operation(summary = "Cadastra Item", description = "Cadastra um Item no banco de dados")
@@ -51,7 +52,7 @@ public class ItemController {
 		ItemEntity item = itemConvert.inputToNewEntity(itemInput);
 		item.setConcluido(false);
 
-		// convertLista(itemInput, item);
+		convertListaId(itemInput, item);
 
 		ItemEntity itemCriado = itemService.cadastra(item);
 		return itemConvert.entityToOutput(itemCriado);
@@ -82,7 +83,6 @@ public class ItemController {
 	@PutMapping("/{id}/concluido")
 	public ItemOutput marcaItemParaConcluido(
 			@Parameter(description = "Id do Item", example = "1") @PathVariable Long id) {
-		// ItemEntity item = itemConvert.inputAlteraConcluidoToEntity(input);
 		ItemEntity item = itemService.buscaItemPorId(id);
 		item.setId(id);
 		item.setConcluido(true);
@@ -101,16 +101,9 @@ public class ItemController {
 		ItemEntity itemAlterado = itemService.alteraItemConcluido(item);
 		return itemConvert.entityToOutput(itemAlterado);
 	}
+
+	private void convertListaId(ItemInput input, ItemEntity entity) {
+		entity.setLista(listaService.buscaListaPorId(input.getListaId()));
+	} 
 }
 
-
-
-
-//	private void convertLista(ItemInput input, ItemEntity entity) {
-//		List<ListaEntity> lista = new ArrayList<>();
-//	
-//		for(Long listaId : input.getListaId()) {
-//			lista.add(listaService.buscaListaPorId(listaId));
-//		}
-//		entity.setLista(lista);
-//	}
