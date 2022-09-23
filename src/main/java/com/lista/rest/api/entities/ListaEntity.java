@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,10 +29,13 @@ public class ListaEntity {
 	@Column(name = "id")
 	private Long id;
 
+	@NotBlank(message = "Titulo é obrigatorio")
+	@Length(max = 100, message = "O maximo de 100 caracteres permitidos")
 	@Column(name = "titulo")
 	private String titulo;
 
 	@OneToMany(mappedBy = "lista", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<ItemEntity> itens;
 	
+
 }

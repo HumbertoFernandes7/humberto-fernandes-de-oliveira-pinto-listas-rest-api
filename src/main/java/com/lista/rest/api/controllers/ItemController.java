@@ -40,8 +40,8 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	 @Autowired
-	 private ListaService listaService;
+	@Autowired
+	private ListaService listaService;
 
 	
 	@Operation(summary = "Cadastra Item", description = "Cadastra um Item no banco de dados")
@@ -51,8 +51,8 @@ public class ItemController {
 			@Parameter(description = "Representação do Item") @RequestBody @Valid ItemInput itemInput) {
 		ItemEntity item = itemConvert.inputToNewEntity(itemInput);
 		item.setConcluido(false);
-
-		convertListaId(itemInput, item);
+		
+		//convertListaId(itemInput, item);
 
 		ItemEntity itemCriado = itemService.cadastra(item);
 		return itemConvert.entityToOutput(itemCriado);
@@ -101,9 +101,13 @@ public class ItemController {
 		ItemEntity itemAlterado = itemService.alteraItemConcluido(item);
 		return itemConvert.entityToOutput(itemAlterado);
 	}
-
-	private void convertListaId(ItemInput input, ItemEntity entity) {
-		entity.setLista(listaService.buscaListaPorId(input.getListaId()));
-	} 
+	
+//	private void convertListaId(ItemInput itemInput, ItemEntity itemEntity) {
+//		List<Long> listaDeListas = new ArrayList<>();
+//		
+//		for (Long listaId : itemInput.getListaId()) {
+//			ListaEntity lista = listaService.buscaListaPorId(listaId);
+//			itemInput.setListaId(listaDeListas);
+//		}	
+//	}
 }
-

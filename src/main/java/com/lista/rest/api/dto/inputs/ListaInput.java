@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ListaInput {
 
 	@NotBlank(message = "Titulo é obrigatorio")
-	@Length(max = 100, message = "O maximo de caracteres permitido é 100")
+	@Length(max = 100, message = "O maximo de 100 caracteres permitidos")
 	private String titulo;
 
 }

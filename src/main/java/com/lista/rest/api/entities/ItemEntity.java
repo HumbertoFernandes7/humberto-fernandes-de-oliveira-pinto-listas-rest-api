@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +28,7 @@ public class ItemEntity {
 	private Long id;
 
 	@NotBlank(message = "Titulo é obrigatorio")
+	@Length(max = 100, message = "O maximo de 100 caracteres permitidos")
 	@Column(name = "titulo")
 	private String titulo;
 	
@@ -33,9 +36,9 @@ public class ItemEntity {
 	@Column(name = "concluido")
 	private Boolean concluido;
 	
-	@NotBlank(message = "Id da lista é obrigatorio")
+	//@NotNull(message = "Id da lista é obrigatorio")
 	@ManyToOne
-	@JoinColumn(name = "id_lista")
+	@JoinColumn(name = "lista_id")
 	private ListaEntity lista;
 	
 	

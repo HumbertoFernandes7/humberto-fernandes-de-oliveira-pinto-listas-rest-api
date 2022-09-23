@@ -2,6 +2,8 @@ package com.lista.rest.api.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ public class ItemService {
 	@Autowired
 	private ItemRepository itemRepository;
 
+	@Transactional
 	public ItemEntity cadastra(ItemEntity item) {
 		return itemRepository.save(item);
 	}
@@ -25,14 +28,17 @@ public class ItemService {
 				.orElseThrow(() -> new RuntimeException("Não foi encontrado o Id " + id));
 	}
 
+	@Transactional
 	public void deletaItem(ItemEntity itemEncontrada) {
 		itemRepository.delete(itemEncontrada);
 	}
 
+	@Transactional
 	public ItemEntity alteraItem(ItemEntity item, AlteraItemInput input) {
 		return itemRepository.save(item);
 	}
 		
+	@Transactional
 	public ItemEntity alteraItemConcluido(ItemEntity item) {
 		return itemRepository.save(item);
 	}

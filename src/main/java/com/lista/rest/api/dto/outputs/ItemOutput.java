@@ -1,7 +1,5 @@
 package com.lista.rest.api.dto.outputs;
 
-import com.lista.rest.api.entities.ListaEntity;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +12,4 @@ public class ItemOutput {
 	private String titulo;
 	
 	private Boolean concluido;
-	
-	//private ListaEntity lista;
 }

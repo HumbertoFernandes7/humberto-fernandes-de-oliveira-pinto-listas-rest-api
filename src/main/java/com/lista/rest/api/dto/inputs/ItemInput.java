@@ -16,7 +16,6 @@ public class ItemInput {
 	@Length(max = 100, message = "O maximo de 100 caracteres permitidos")
 	private String titulo;
 
-	@NotBlank(message = "Id da lista é obrigatorio")
 	private Long listaId;
 	
 }
